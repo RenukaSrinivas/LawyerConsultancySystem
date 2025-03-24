@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Places</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Light background color for better contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #ff6f61; /* Vibrant coral color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff4a40; /* Slightly darker coral on hover */
+        }
+
+        .frames {
+            display: flex;
+            flex-direction: column; /* Stack cards in a single column */
+            gap: 20px; /* Space between cards */
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            width: 100%; /* Full width for each card */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+           /* color: #ff6f61;  Matching color for card titles */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nearby Places Finder</h1>
+            <input type="text" id="searchBar" placeholder="Search for places...">
+            <button id="searchButton">Search</button>
+        </header>
+        <div class="frames">
+            <div class="card" id="hospitals">
+                <h2>Nearby Hospitals</h2>
+                <button class="mapButton" data-type="hospital">View on Map</button>
+            </div>
+            <div class="card" id="petrolBunks">
+                <h2>Nearby Petrol Bunks</h2>
+                <button class="mapButton" data-type="gas_station">View on Map</button>
+            </div>
+            <div class="card" id="mechanics">
+                <h2>Nearby Automobile Mechanics</h2>
+                <button class="mapButton" data-type="car_repair">View on Map</button>
+            </div>
+            <div class="card" id="restaurants">
+                <h2>Nearby Restaurants</h2>
+                <button class="mapButton" data-type="restaurant">View on Map</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.getElementById('searchButton');
+            const searchBar = document.getElementById('searchBar');
+            const mapButtons = document.querySelectorAll('.mapButton');
+
+            // Get user location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+
+            function showPosition(position) {
+                const lat = position.coords.latitude;
+                const long = position.coords.longitude;
+
+                // Add event listeners to map buttons
+                mapButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const type = button.getAttribute('data-type');
+                        openMaps(lat, long, type);
+                    });
+                });
+
+                // Event listener for search button
+                searchButton.addEventListener('click', () => {
+                    const query = searchBar.value;
+                    openMaps(lat, long, query);
+                });
+            }
+
+            function openMaps(lat, long, type) {
+                const baseUrl = "https://www.google.com/maps/search/?api=1";
+                const query = type ? `&query=${type}+near+${lat},${long}` : `&query=${searchBar.value}`;
+                const url = `${baseUrl}${query}`;
+                window.open(url, '_blank');
+            }
+
+            function showError() {
+                alert("Unable to retrieve your location.");
+            }
+        });
+    </script>
+</body>
+</html>

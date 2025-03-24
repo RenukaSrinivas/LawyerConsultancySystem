@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Signup Form with Location Popup</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #f3f4f6;
+            --text-color: #1f2937;
+            --light-text: #6b7280;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --border-color: #e5e7eb;
+            --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+            padding: 20px;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .title-text {
+            display: flex;
+            width: 200%;
+        }
+
+        .title {
+            width: 50%;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-color);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .form-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slide-controls {
+            position: relative;
+            display: flex;
+            height: 50px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 0 0 30px 0;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .slide-controls .slide {
+            height: 100%;
+            width: 100%;
+            color: var(--light-text);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 48px;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.6s ease;
+        }
+
+        .slide-controls .slide-tab {
+            position: absolute;
+            height: 100%;
+            width: 50%;
+            left: 0;
+            z-index: 0;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        #signup:checked~.slide-tab {
+            left: 50%;
+        }
+
+        #signup:checked~label.signup,
+        #login:checked~label.login {
+            color: #fff;
+            cursor: default;
+        }
+
+        #signup:checked~label.login,
+        #login:checked~label.signup {
+            color: var(--light-text);
+        }
+
+        .form-inner {
+            display: flex;
+            width: 200%;
+        }
+
+        .form-inner form {
+            width: 50%;
+            padding: 0 30px 30px 30px;
+        }
+
+        .form-inner form .field {
+            height: 60px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .form-inner form .field input,
+        .form-inner form .field select {
+            height: 100%;
+            width: 100%;
+            padding: 0 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-inner form .field input:focus,
+        .form-inner form .field select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        form .field input[type="submit"] {
+            color: #fff;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        form .field input[type="submit"]:hover {
+            background: linear-gradient(-135deg, var(--primary-color), var(--primary-hover));
+        }
+
+        .location-box {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: var(--secondary-color);
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 480px) {
+            .wrapper {
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title login">Login Form</div>
+            <div class="title signup">Signup Form</div>
+        </div>
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Signup</label>
+                <div class="slide-tab"></div>
+            </div>
+            <div class="form-inner">
+                <!-- Login Form -->
+                <form action="#" class="login" id="loginForm">
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" id="loginEmail" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" id="loginPassword" required>
+                    </div>
+                    <input type="hidden" id="loginlatitude" name="latitude">
+                    <input type="hidden" id="loginlongitude" name="longitude">
+                    <div class="pass-link">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Login" id="loginBtn">
+                    </div>
+                    <div class="signup-link">
+                        Not a member? <a href="#">Signup Now</a>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form action="#" class="signup" id="signupForm">
+                    <div class="field">
+                        <input type="text" placeholder="Username" id="signupUsername" required>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" id="signupEmail" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" id="signupPassword" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Confirm Password" id="signupConfirmPassword" required>
+                    </div>
+                    <div class="field">
+                        <select id="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="customer">Customer</option>
+                            <option value="advocate">Advocate</option>
+                            <option value="agencies">Agencies</option>
+                        </select>
+                    </div>
+
+                    <!-- Hidden Fields to Capture Location -->
+                    <input type="hidden" id="signuplatitude" name="latitude">
+                    <input type="hidden" id="signuplongitude" name="longitude">
+
+                    <!-- Location Box -->
+                    <div id="locationBox" class="location-box">
+                        <p id="locationStatus">Detecting location...</p>
+                    </div>
+
+                    <div class="field">
+                        <input type="submit" value="Signup" id="signupBtn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

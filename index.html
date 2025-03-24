@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Car Scene</title>
+    <style>
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            
+            background-image: url("court.png");
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+        margin-top: 300px;
+        }
+
+
+        .element {
+            
+            background-size: cover; 
+            background-position: center; 
+            width: 100%; 
+            height: 400px;
+}
+
+
+        @keyframes dayNight {
+            0% { background-position: 25% 0%; }
+            50% { background-position: 76% 100%; }
+            100% { background-position: 25% 0%; }
+        }
+
+        @keyframes driving {
+            0% { left: -25%; }
+            100% { left: 110%; bottom: 10%; transform: scale(0.5) rotateZ(0deg); }
+        }
+
+        @keyframes wheelsRotation {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes road-moving {
+            100% { transform: translate(-2400px); }
+        }
+
+        @keyframes sun-moon {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .text1
+        {
+            position: absolute;
+            top: 3%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            text-decoration: solid;
+            font-weight: bold;
+            font-size: 30px;
+            color: white;
+        }
+
+        /* Center Buttons */
+        .buttons-container {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+
+        .buttons-container button {
+            display: block;
+            width: 200px;
+            padding: 10px 20px;
+            margin: 10px auto;
+            font-size: 20px;
+            color: rgb(225, 217, 217);
+            background-color: #9c1446;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons-container button:hover {
+            background-color: #555;
+        }
+
+       
+       
+    </style>
+</head>
+<body>
+    <div class="buttons-container">
+        
+        <a href="login.html" style="text-decoration: none;"><button>Get Started</button></a>
+    </div>
+    <div class="text1">
+        <label>LAWYER CONSULTANCY</label>
+    </div>
+
+</body>
+</html>
